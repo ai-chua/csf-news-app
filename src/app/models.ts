@@ -12,7 +12,7 @@ export interface Country {
   keyId?: number
 }
 
-export class article {
+export class Article {
   article;
   saved: boolean = false
 }

@@ -1,1 +1,17 @@
 <h3>{{ region }} headlines</h3>
+
+<div class="d-flex flex-wrap">
+  <div *ngFor="let article of articles" class="card m-3" style="width: 18rem;">
+    <img class="card-img-top" src="{{article.urlToImage}}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{article.title}}</h5>
+      <p class="card-text text-muted">
+        {{article.source.name}}, {{article.author}}<br>
+        Published: {{article.publishedAt}}
+      </p>
+      <p class="card-text">{{article.description}}</p>
+      <p class="card-text font-weight-light">{{article.content}}</p>
+      <a href="{{article.url}}" target="_blank" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+</div>
