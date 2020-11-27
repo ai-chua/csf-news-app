@@ -1,0 +1,16 @@
+<h2>Settings</h2>
+
+<form action="" [formGroup]="apiForm">
+  <div class="form-group">
+    <label for="apiKey">NewsAPI.org</label>
+    <input type="text" formControlName="apiKey" class="form-control" id="apiKey" placeholder="Your NewsAPI.org API key">
+  </div>
+  
+  <div class="d-flex justify-content-between">
+    <div>
+      <button type="button" class="btn btn-secondary mr-2" (click)="toRegion()">View News Regions</button>
+      <button type="button" class="btn btn-danger">Delete Key</button>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="apiForm.invalid" (click)="saveApiKey()">Save Key</button>
+  </div>
+</form>
