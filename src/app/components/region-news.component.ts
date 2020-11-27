@@ -32,7 +32,8 @@ export class RegionNewsComponent implements OnInit {
       .then(data => {
         return data['articles']
       })
-    console.info(this.articles)
+      console.info(this.articles)
+    this.newsDB.addNews(this.articles)
   }
 
   getApiKey() {

@@ -1,5 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiKey } from '../models';
 import { NewsDatabase } from '../news.database'
 
 @Component({
@@ -9,7 +10,7 @@ import { NewsDatabase } from '../news.database'
 })
 export class MainsComponent implements OnInit {
   
-  apiKey: string = null
+  apiKey: ApiKey
   
   constructor(private router: Router, private ngZone: NgZone, private newsDB: NewsDatabase) { }
   
@@ -22,8 +23,9 @@ export class MainsComponent implements OnInit {
   setApiKey() {
     this.newsDB.getApiKey()
       .then(data => {
-        console.info(data)
-        this.apiKey = data
+        // console.info(data)
+        this.apiKey = data[0].apiKey
+        console.info('this.apiKey >> ', this.apiKey)
       })
   }
   

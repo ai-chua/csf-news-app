@@ -10,28 +10,34 @@ import { ApiKey } from '../models'
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-
+  
   apiForm: FormGroup
   apiKeyResult: []
-  currentApiKey: string
-
+  currentApiKey
+  
   constructor(private fb: FormBuilder, private router: Router, private ngZone: NgZone, private newsDB: NewsDatabase) { }
-
+  
   ngOnInit(): void {
-    this.newsDB.getApiKey().then(data => {
-      // console.info(data)
-      this.apiKeyResult = data.map(d => {
-        return d
+     //@ts-ignore
+    this.apiKeyResult = this.newsDB.getApiKey().then(data => {
+      console.info(data)
+      return data
+    })
+    console.info(this.apiKeyResult)
+    if (this.apiKeyResult.length == 0) {
+      console.log('No result')
+      this.apiForm = this.fb.group({
+        apiKey: this.fb.control('', [ Validators.required ] )
       })
-      console.info(this.apiKeyResult)
-    }).catch(error => console.info(error))
-    console.log(this.apiKeyResult)
-    this.apiForm = this.createApiKeyForm()
-    console.info('Created a FormGroup...')
+    } else {
+      console.log('Result: ', this.apiKeyResult.length)
+      this.apiForm = this.fb.group({
+        apiKey: this.fb.control('', [ Validators.required ] )
+      })
+    }
   }
-
+  
   async saveApiKey() {
-    // const key = this.apiForm.value.apiKey
     const key: ApiKey = {
       apiKey: this.apiForm.value.apiKey
     }
@@ -41,14 +47,14 @@ export class SettingsComponent implements OnInit {
     console.info('Stored', key, 'to IndexedDB')
     this.router.navigate(['/region'])
   }
-
+  
   toRegion() {
     this.apiForm.reset()
     this.ngZone.run(() => {
       this.router.navigate([ '/region' ])
     })
   }
-
+  
   // Creating a FormGroup on init
   private createApiKeyForm() {
     return this.fb.group({

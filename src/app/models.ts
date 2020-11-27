@@ -14,5 +14,7 @@ export interface Country {
 
 export class Article {
   article;
-  saved: boolean = false
+  region: Country;
+  saved: boolean = false;
+  keyId?: number
 }
